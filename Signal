@@ -1,0 +1,13 @@
+package anima;
+
+public class Signal {
+	public static boolean wait;
+	
+	public static void setTrue(){
+		wait = true;
+	}
+	
+	public static void setFalse(){
+		wait = false;
+	}
+}
