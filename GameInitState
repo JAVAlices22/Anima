@@ -1,0 +1,31 @@
+package anima;
+
+import org.newdawn.slick.*;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.EmptyTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
+
+public class GameInitState extends BasicGameState {
+   
+    public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
+        
+    }
+    
+    public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
+        
+    }
+    
+    public void render(GameContainer container, StateBasedGame sbg, Graphics g) throws SlickException {
+        g.setColor(Color.white);
+        g.drawString("Begin!", 350, 285);
+        g.drawString("(Hit enter)", 325, 300);
+        if(container.getInput().isKeyPressed(Input.KEY_ENTER))
+        	sbg.enterState(0, new FadeOutTransition(), new EmptyTransition());
+        
+    }
+    
+    public int getID() {
+        return 2;
+    }
+}
