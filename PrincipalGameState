@@ -1,9 +1,13 @@
+package anima;
+
 import java.util.ArrayList;
 import java.util.Random;
+
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.EmptyTransition;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
@@ -21,31 +25,37 @@ public class PrincipalGameState extends BasicGameState {
     } 
     
     public void update(GameContainer container, StateBasedGame sbg, int delta) throws SlickException {
-        if(container.getInput().isKeyPressed(Input.KEY_ESCAPE)){
-            sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
+        
+    	while(Signal.wait == true){
+    		try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+    	}
+    	
+    	if(container.getInput().isKeyPressed(Input.KEY_ESCAPE)){
+            sbg.enterState(1, new FadeOutTransition(), new EmptyTransition());
         }
         mouseBall.setCenterX(container.getInput().getMouseX());
         mouseBall.setCenterY(container.getInput().getMouseY());
         timePassed += delta;
-        if(timePassed > 500) {
+        if(timePassed > 1000) {
             timePassed = 0;
-            balls.add(new Circle(200+random.nextInt(400), 0, 10));
-        }
-        for(Circle c: balls){
-            c.setCenterY(c.getCenterY()+(delta/3f));
+            balls.add(new Circle(200+random.nextInt(500), 50+random.nextInt(500), 10));
         }
         for (int i = balls.size()-1 ; i >= 0; i--) {
             Circle c = balls.get(i);
-            if(c.getCenterY()>610){
-                balls.remove(i);
-                SetupClass.lives --;
-            } else if(c.intersects(mouseBall)){
+            if(balls.size() > 4){
+                balls.remove(0);
+                SetupClass.lives--;
+            } else if(c.intersects(mouseBall) && container.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)){
                     balls.remove(i);
                     SetupClass.gameScore ++;
                 }
             }
             if(SetupClass.lives <= 0){
-                sbg.enterState(1, new FadeOutTransition(), new FadeOutTransition());
+                sbg.enterState(1, new FadeOutTransition(), new EmptyTransition());
             }
         }
     
