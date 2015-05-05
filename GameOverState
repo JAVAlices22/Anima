@@ -1,6 +1,8 @@
+package anima;
+
+
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
-import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class GameOverState extends BasicGameState {
@@ -15,8 +17,8 @@ public class GameOverState extends BasicGameState {
     
     public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException {
         g.setColor(Color.white);
-        g.drawString("Game Over!", 300, 300);
-        g.drawString("Pontos:"+SetupClass.gameScore, 300, 315);
+        g.drawString("Game Over!", 350, 285);
+        g.drawString("Points:"+SetupClass.gameScore, 350, 300);
         
     }
     
